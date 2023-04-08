@@ -72,10 +72,10 @@ def fetch_nasa_epic():
         image_downloader(f"nasa_epic_{photo_number}.png","images",f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{ photo_url.get('image')}.png",payload)
         
 
-fetch_spacex_last_launch()
-fetch_nasa(10)
-fetch_nasa_epic()
-
+# fetch_spacex_last_launch()
+# fetch_nasa(10)
+# fetch_nasa_epic()
+# 
 #formatprint = pprint.PrettyPrinter()
 #formatprint.pprint(photos)
 
