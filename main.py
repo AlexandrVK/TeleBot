@@ -76,7 +76,6 @@ fetch_spacex_last_launch()
 fetch_nasa(10)
 fetch_nasa_epic()
 
-
 #formatprint = pprint.PrettyPrinter()
 #formatprint.pprint(photos)
 
