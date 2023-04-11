@@ -1,10 +1,10 @@
 import requests
 import os
 from dotenv import load_dotenv
-from mymodule import *
+from mymodule import image_downloader, get_file_extension
 
 
-def fetch_nasa(count):
+def fetch_nasa(count='1'):
     load_dotenv()
     payload = {"count": count,
                "api_key": os.environ['nasa_api_key']
@@ -15,12 +15,13 @@ def fetch_nasa(count):
     
 
     for photo_number, photo_url in enumerate(photos):
-        image_downloader(f"nasa_apod_{photo_number}{get_file_extension(photo_url.get('url'))}","images", photo_url.get("url"))
+        if photo_url:
+            image_downloader(f"nasa_apod_{photo_number}{get_file_extension(photo_url.get('url'))}","images", photo_url.get("url"))
         
 if __name__ == "__main__":    
     
     import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument ('count', nargs='?', default='1')
+    parser = argparse.ArgumentParser(description="Скачивание фотографий с сайта Nasa APOD ")
+    parser.add_argument ('count', nargs='?', default=1, help="Количество фотографий (по умолчанию 1) ")
     args = parser.parse_args() 
     fetch_nasa(args.count)

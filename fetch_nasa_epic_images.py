@@ -2,7 +2,8 @@ import requests
 import os
 import datetime
 from dotenv import load_dotenv
-import mymodule
+from mymodule import image_downloader
+
 
  
 def fetch_nasa_epic():
@@ -22,7 +23,7 @@ def fetch_nasa_epic():
         formatted_date = datetime_obj.strftime('%Y/%m/%d')
        
        
-        mymodule.image_downloader(f"nasa_epic_{photo_number}.png","images",f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{ photo_url.get('image')}.png",payload)
+        image_downloader(f"nasa_epic_{photo_number}.png","images",f"https://api.nasa.gov/EPIC/archive/natural/{formatted_date}/png/{ photo_url.get('image')}.png",payload)
         
 if __name__ == "__main__":    
     
