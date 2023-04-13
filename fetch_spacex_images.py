@@ -1,12 +1,7 @@
 import requests
-from mymodule import image_downloader, get_file_extension
+from my_modules import download_image, get_file_extension
+import argparse
 
-
-
-def enumerate_photos(photos):
-    for index, photo_url in enumerate(photos):
-        image_downloader(f"spacex_{index}{get_file_extension(photo_url)}","images", photo_url)  
-    
 
 def fetch_spacex_launch(id):
     response = requests.get(f"https://api.spacexdata.com/v5/launches/{id}")
@@ -14,10 +9,8 @@ def fetch_spacex_launch(id):
     launch=response.json()
     photos = launch.get("links").get("flickr").get("original")
     
-    enumerate_photos(photos)
-    
-
-
+    for index, photo_url in enumerate(photos):
+        download_image(f"spacex_{index}{get_file_extension(photo_url)}","images", photo_url)  
 
 def fetch_spacex_last_launch():
     
@@ -30,13 +23,13 @@ def fetch_spacex_last_launch():
             photos = launch.get("links").get("flickr").get("original")
             break
 
-    enumerate_photos(photos)
+    for index, photo_url in enumerate(photos):
+        download_image(f"spacex_{index}{get_file_extension(photo_url)}","images", photo_url)  
+ 
     
 
 
-if __name__ == "__main__":    
-    
-    import argparse
+def main():   
     parser = argparse.ArgumentParser(description="Сохранение фотографий с сайта SpaceX с последнего или выбраного запуска")
     parser.add_argument ('id', nargs='?', default='',help="ID запуска")
     args = parser.parse_args() 
@@ -44,3 +37,6 @@ if __name__ == "__main__":
         fetch_spacex_launch(args.id)
     else:
         fetch_spacex_last_launch()         
+
+if __name__ == '__main__':
+    main()        
