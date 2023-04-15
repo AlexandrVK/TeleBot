@@ -1,5 +1,5 @@
 import requests
-from my_modules import download_image, get_file_extension
+from modules import download_image, get_file_extension
 import argparse
 
 
@@ -31,12 +31,12 @@ def fetch_spacex_last_launch():
 
 def main():   
     parser = argparse.ArgumentParser(description="Сохранение фотографий с сайта SpaceX с последнего или выбраного запуска")
-    parser.add_argument ('id', nargs='?', default='',help="ID запуска")
+    parser.add_argument ("id", nargs="?", default="",help="ID запуска")
     args = parser.parse_args() 
     if args.id:
         fetch_spacex_launch(args.id)
     else:
         fetch_spacex_last_launch()         
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()        
