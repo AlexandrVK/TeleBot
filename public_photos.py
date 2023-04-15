@@ -4,23 +4,23 @@ import argparse
 import time
 from dotenv import load_dotenv
 import telegram
-from my_modules import get_all_images, compress_image
+from modules import get_all_images, compress_image
 
 def main():
     
     load_dotenv()
 
-    chat_id = os.environ['CHAT_ID']
+    chat_id = os.environ["CHAT_ID"]
 
-    bot = telegram.Bot(token = os.environ['TOKEN'])
+    bot = telegram.Bot(token = os.environ["TOKEN"])
 
-    # Путь к каталогу с изображениями
+  
     images_directory = "images"
-    # Максимальный размер изображения в байтах (20 MB)
+   
     max_image_size_bytes = 20 * 1024 * 1024
     
     parser = argparse.ArgumentParser(description="Публикация изображений из каталога в произвольном порядке с заданным интервалом")
-    parser.add_argument("interval", type=int, nargs='?', default=14400, help="Интервал между публикациями в секундах")
+    parser.add_argument("interval", type=int, nargs="?", default=14400, help="Интервал между публикациями в секундах")
     args = parser.parse_args()
     
     filenames = get_all_images(images_directory)
@@ -36,14 +36,14 @@ def main():
                 compress_image(filepath, max_image_size_bytes)
         
             
-            bot.send_photo(chat_id=chat_id, photo=open(filepath, 'rb'))
+
             
-            with open(filepath, 'rb') as file:
+            with open(filepath, "rb") as file:
                 bot.send_photo(chat_id=chat_id, photo=file)
                 
             time.sleep(args.interval)
        
         random.shuffle(filenames)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
