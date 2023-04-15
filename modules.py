@@ -27,7 +27,7 @@ def download_image(filename,filepath,url,params=""):
     pathlib.Path(filepath).mkdir(parents=True, exist_ok=True) 
     response = requests.get(url,params=params)
     response.raise_for_status()
-    with open(os.path.join(filepath,filename), 'wb') as file:
+    with open(os.path.join(filepath,filename), "wb") as file:
         file.write(response.content)
 
 
